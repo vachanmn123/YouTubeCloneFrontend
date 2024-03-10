@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import { Button } from "./components/ui/button";
+import { Helmet } from "react-helmet";
 
 export default function ErrorPage() {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-12">
+      <Helmet>
+        <title>404 | YouTube Clone</title>
+      </Helmet>
       <h1 className="text-5xl">404 - Page not Found</h1>
       <img
         src="https://http.cat/404"

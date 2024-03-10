@@ -3,11 +3,19 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "./routes/home";
 import AboutPage from "./routes/about";
 import ErrorPage from "./error-page";
+import Helmet from "react-helmet";
 
 function App() {
   const location = useLocation();
   return (
     <>
+      <Helmet>
+        <title>YouTube Clone</title>
+        <meta
+          name="description"
+          content="A YouTube clone made with React and TypeScript by Vachan MN"
+        />
+      </Helmet>
       <AnimatePresence>
         <h1>Header</h1>
         <Routes location={location} key={location.pathname}>
