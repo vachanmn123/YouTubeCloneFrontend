@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 
 export default function ErrorPage() {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-12">
+    <div className="w-full flex flex-col items-center justify-center gap-5">
       <Helmet>
         <title>404 | YouTube Clone</title>
       </Helmet>

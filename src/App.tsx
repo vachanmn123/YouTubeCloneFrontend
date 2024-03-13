@@ -4,9 +4,17 @@ import HomePage from "./routes/home";
 import AboutPage from "./routes/about";
 import ErrorPage from "./error-page";
 import Helmet from "react-helmet";
+import NavBar from "./components/NavBar";
+import { useState } from "react";
+import Footer from "./components/Footer";
 
 function App() {
   const location = useLocation();
+  const screenWidth = window.innerWidth;
+  const [sideBarOpen, setSideBarOpen] = useState(
+    screenWidth > 768 ? true : false
+  );
+
   return (
     <>
       <Helmet>
@@ -17,13 +25,19 @@ function App() {
         />
       </Helmet>
       <AnimatePresence>
-        <h1>Header</h1>
-        <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
-        <p>Footer</p>
+        <NavBar isOpen={sideBarOpen} setIsOpen={setSideBarOpen} />
+        <div
+          className={`mt-[5rem] ${
+            sideBarOpen ? "ml-[17rem]" : "ml-[1rem]"
+          } transition-all max-w-[calc(100%-4rem)] mx-auto overflow-x-hidden overflow-y-scroll min-h-[calc(100vh-12rem)]`}
+        >
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
+        </div>
+        <Footer />
       </AnimatePresence>
     </>
   );
