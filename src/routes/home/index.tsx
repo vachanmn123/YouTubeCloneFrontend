@@ -5,6 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 import getVideos from "../../../lib/api/getVideos";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import { MdError } from "react-icons/md";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 function generateDurationString(seconds: number) {
   const date = new Date(0);
@@ -27,9 +29,34 @@ export default function HomePage() {
         <title>Home | YouTube Clone</title>
       </Helmet>
       <h1 className="text-3xl font-bold mb-5">Recommended</h1>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Error loading videos</p>}
-      <div className="flex flex-wrap gap-5 w-full justify-evenly">
+      {isLoading && (
+        <motion.div
+          className="flex flex-col w-full justify-center items-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <AiOutlineLoading3Quarters className="h-[15rem] w-[15rem] animate-spin" />
+          <p className="text-2xl font-bold">Loading Videos</p>
+        </motion.div>
+      )}
+      {isError && (
+        <motion.div
+          className="flex flex-col w-full justify-center items-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <MdError className="h-[15rem] w-[15rem]" />
+          <p className="text-2xl font-bold">Error Fetching Videos</p>
+        </motion.div>
+      )}
+      <motion.div
+        className="flex flex-wrap gap-5 w-full justify-evenly"
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.5 }}
+      >
         {videos?.map((video) => (
           <motion.span
             initial={{ opacity: 0, scale: 0.5 }}
@@ -77,7 +104,7 @@ export default function HomePage() {
             </Link>
           </motion.span>
         ))}
-      </div>
+      </motion.div>
     </PageBase>
   );
 }
