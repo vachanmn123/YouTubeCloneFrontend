@@ -1,20 +1,25 @@
 
 const API_URL = import.meta.env.VITE_API_ROOT as string;
 
-type Video = {
+type UserObjectID = string;
+type CommentObjectID = string;
+
+export type Video = {
   _id: string;
   title: string;
   description: string;
   thumbnail: string;
   location: string;
   duration: number;
-  uploader: string; // TODO: This is actually a User object
+  uploader: string;
   privacy: "public" | "private" | "unlisted";
   uploadDate: Date;
-  likes: Array<string>; // TODO: This is actually a User object
-  dislikes: Array<string>; // TODO: This is actually a User object
+  likes: Array<UserObjectID>;
+  likeCount: number;
+  dislikes: Array<UserObjectID>;
+  dislikeCount: number;
   views: number;
-  comments: Array<string>; // TODO: This is actually a Comment object
+  comments: Array<CommentObjectID>;
 }
 
 export default async function getVideos() {
