@@ -2,6 +2,8 @@
 
 interface ImportMetaEnv {
   readonly VITE_APP_TITLE: string
+  readonly VITE_API_ROOT: string
+  readonly VITE_AUTH_ROOT: string
   // more env variables...
 }
 
