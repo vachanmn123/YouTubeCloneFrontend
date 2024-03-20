@@ -18,6 +18,14 @@ function App() {
     screenWidth > 768 ? true : false
   );
 
+  window.onresize = () => {
+    if (window.innerWidth > 768) {
+      setSideBarOpen(true);
+    } else {
+      setSideBarOpen(false);
+    }
+  };
+
   return (
     <>
       <Helmet>
