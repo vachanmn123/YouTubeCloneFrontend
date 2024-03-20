@@ -9,6 +9,7 @@ import { useState } from "react";
 import Footer from "./components/Footer";
 import WatchVideoPage from "./routes/watch";
 import ChannelPage from "./routes/channel";
+import ChannelsPage from "./routes/channels";
 
 function App() {
   const location = useLocation();
@@ -35,6 +36,7 @@ function App() {
         >
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<HomePage />} />
+            <Route path="/channels" element={<ChannelsPage />} />
             <Route path="/watch/:id" element={<WatchVideoPage />} />
             <Route path="channel/:id" element={<ChannelPage />} />
             <Route path="/about" element={<AboutPage />} />

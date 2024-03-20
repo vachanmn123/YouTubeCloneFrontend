@@ -6,6 +6,7 @@ import WatchPageLikeDislike from "@/components/WatchPageLikeDislike";
 import WatchPageDescription from "@/components/WatchPageDescription";
 import WatchPageComments from "@/components/WatchPageComments";
 import WatchPagePlayer from "@/components/WatchPagePlayer";
+import { Helmet } from "react-helmet";
 
 export default function WatchVideoPage() {
   const { id } = useParams<{ id: string }>();
@@ -20,24 +21,30 @@ export default function WatchVideoPage() {
   }
 
   return (
-    <div className="flex flex-col col-span-7 pr-3">
-      {/* @ts-expect-error - This undefined case has been handled by the loader */}
-      <WatchPagePlayer video={video} />
-      <div className="flex flex-col p-4 gap-5">
-        <h1 className="text-3xl font-bold tracking-wide justify-between">
-          {video?.title}
-        </h1>
-        <div className="flex md:flex-row flex-col gap-5 justify-between">
-          {/* @ts-expect-error - This undefined case has been handled by the loader */}
-          <WatchPageUploader video={video} />
-          {/* @ts-expect-error - This undefined case has been handled by the loader */}
-          <WatchPageLikeDislike video={video} />
+    <>
+      <Helmet>
+        <title>{video?.title} | YouTube Clone</title>
+        <meta name="description" content={video?.description} />
+      </Helmet>
+      <div className="flex flex-col col-span-7 pr-3">
+        {/* @ts-expect-error - This undefined case has been handled by the loader */}
+        <WatchPagePlayer video={video} />
+        <div className="flex flex-col p-4 gap-5">
+          <h1 className="text-3xl font-bold tracking-wide justify-between">
+            {video?.title}
+          </h1>
+          <div className="flex md:flex-row flex-col gap-5 justify-between">
+            {/* @ts-expect-error - This undefined case has been handled by the loader */}
+            <WatchPageUploader video={video} />
+            {/* @ts-expect-error - This undefined case has been handled by the loader */}
+            <WatchPageLikeDislike video={video} />
+          </div>
         </div>
+        {/* @ts-expect-error - This undefined case has been handled by the loader */}
+        <WatchPageDescription video={video} />
+        {/* @ts-expect-error - This undefined case has been handled by the loader */}
+        <WatchPageComments video={video} />
       </div>
-      {/* @ts-expect-error - This undefined case has been handled by the loader */}
-      <WatchPageDescription video={video} />
-      {/* @ts-expect-error - This undefined case has been handled by the loader */}
-      <WatchPageComments video={video} />
-    </div>
+    </>
   );
 }

@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import PageBase from "../../components/PageBase";
 import { Button } from "@/components/ui/button";
 import ChannelPageVideos from "@/components/ChannelPageVideos";
+import { Helmet } from "react-helmet";
 
 export default function ChannelPage() {
   const { id } = useParams<{ id: string }>();
@@ -14,6 +15,11 @@ export default function ChannelPage() {
   });
   return (
     <PageBase>
+      <Helmet>
+        <title>
+          {user?.firstName} {user?.lastName} | YouTube Clone
+        </title>
+      </Helmet>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
