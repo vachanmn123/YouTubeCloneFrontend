@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import getUserVideoLikeStatus from "../../lib/api/getUserVideoLikeStatus";
 import getUserVideoDislikeStatus from "../../lib/api/getUserVideoDislikeStatus";
 import likeVideo from "../../lib/api/likeVideo";
-import unLikeVideo from "../../lib/api/unLikeVideo";
+import unLikeVideo from "../../lib/api/unlikeVideo";
 import dislikeVideo from "../../lib/api/dislikeVideo";
 import unDislikeVideo from "../../lib/api/unDislikeVideo";
 import { getToken } from "@/lib/getToken";
