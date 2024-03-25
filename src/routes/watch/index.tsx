@@ -19,7 +19,7 @@ export default function WatchVideoPage() {
   return (
     <>
       <Helmet>
-        <title>{video?.title} | YouTube Clone</title>
+        <title>{`${video?.title}`} | Youtube Clone</title>
         <meta name="description" content={video?.description} />
       </Helmet>
       {isLoading ? (

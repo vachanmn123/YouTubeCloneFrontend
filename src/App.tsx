@@ -10,6 +10,8 @@ import Footer from "./components/Footer";
 import WatchVideoPage from "./routes/watch";
 import ChannelPage from "./routes/channel";
 import ChannelsPage from "./routes/channels";
+import { useQuery } from "@tanstack/react-query";
+import getAuthUser from "./lib/getAuthuser";
 
 function App() {
   const location = useLocation();
@@ -17,6 +19,11 @@ function App() {
   const [sideBarOpen, setSideBarOpen] = useState(
     screenWidth > 768 ? true : false
   );
+
+  const { data: currentUser } = useQuery({
+    queryKey: ["currentUser"],
+    queryFn: getAuthUser,
+  });
 
   window.onresize = () => {
     if (window.innerWidth > 768) {
@@ -36,7 +43,11 @@ function App() {
         />
       </Helmet>
       <AnimatePresence>
-        <NavBar isOpen={sideBarOpen} setIsOpen={setSideBarOpen} />
+        <NavBar
+          isOpen={sideBarOpen}
+          setIsOpen={setSideBarOpen}
+          user={currentUser}
+        />
         <div
           className={`mt-[5rem] ${
             sideBarOpen ? "ml-[17rem]" : "ml-[1rem]"

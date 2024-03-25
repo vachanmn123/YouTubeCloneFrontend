@@ -17,7 +17,7 @@ export default function ChannelPage() {
     <PageBase>
       <Helmet>
         <title>
-          {user?.firstName} {user?.lastName} | YouTube Clone
+          {`${user?.firstName} ${user?.lastName}` || "Channel"} - YouTube Clone
         </title>
       </Helmet>
       {isLoading ? (
@@ -26,7 +26,7 @@ export default function ChannelPage() {
         <div className="flex flex-col gap-4 mr-3">
           <div className="flex md:flex-row flex-col items-center gap-4">
             <img
-              src={user?.imageURL}
+              src={user?.imageURL || "/avatar.png"}
               alt="Channel Avatar"
               className="h-[25rem] w-[25rem] rounded-full aspect-square object-contain"
             />
