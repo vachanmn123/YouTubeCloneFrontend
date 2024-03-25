@@ -11,6 +11,7 @@ import unDislikeVideo from "../../lib/api/unDislikeVideo";
 import { getToken } from "@/lib/getToken";
 import { checkAuth } from "@/lib/checkAuth";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function WatchPageLikeDislike({ video }: { video: Video }) {
   const qClient = useQueryClient();
@@ -135,10 +136,16 @@ export default function WatchPageLikeDislike({ video }: { video: Video }) {
           variant={`${isLiked ? "default" : "ghost"}`}
           onClick={() => (isLiked ? removeLike.mutate() : addLike.mutate())}
         >
-          <FaThumbsUp className="h-6 w-6 mr-3" />
-          <p className="text-white group-hover:text-black dark:text-black">
-            {video?.likeCount}
-          </p>
+          {addLike.isPending || removeLike.isPending ? (
+            <AiOutlineLoading3Quarters className="animate-spin" />
+          ) : (
+            <>
+              <FaThumbsUp className="h-6 w-6 mr-3" />
+              <p className="text-white group-hover:text-black dark:text-black">
+                {video?.likeCount}
+              </p>
+            </>
+          )}
         </Button>
         <Button
           variant={`${isDisliked ? "default" : "ghost"}`}
@@ -147,10 +154,16 @@ export default function WatchPageLikeDislike({ video }: { video: Video }) {
             isDisliked ? removeDislike.mutate() : addDislike.mutate()
           }
         >
-          <FaThumbsDown className="h-6 w-6 mr-3" />
-          <p className="text-white group-hover:text-black">
-            {video?.dislikeCount}
-          </p>
+          {addDislike.isPending || removeDislike.isPending ? (
+            <AiOutlineLoading3Quarters className="animate-spin" />
+          ) : (
+            <>
+              <FaThumbsDown className="h-6 w-6 mr-3" />
+              <p className="text-white group-hover:text-black dark:text-black">
+                {video?.dislikeCount}
+              </p>
+            </>
+          )}
         </Button>
       </div>
       <div className="bg-black dark:bg-white bg-opacity-50 rounded-full flex items-center gap-5 justify-self-end">
