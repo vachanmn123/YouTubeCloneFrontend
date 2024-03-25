@@ -59,9 +59,15 @@ export default function WatchPageLikeDislike({ video }: { video: Video }) {
       }
       return likeVideo(video._id, token);
     },
-    onSuccess: () => {
-      qClient.invalidateQueries({
-        queryKey: ["video", video._id, "isLiked", "isDisliked"],
+    onSuccess: async () => {
+      await qClient.invalidateQueries({
+        queryKey: ["video", video._id],
+      });
+      await qClient.invalidateQueries({
+        queryKey: ["isLiked", video._id],
+      });
+      await qClient.invalidateQueries({
+        queryKey: ["isDisliked", video._id],
       });
     },
   });
@@ -80,9 +86,15 @@ export default function WatchPageLikeDislike({ video }: { video: Video }) {
       }
       return unLikeVideo(video._id, token);
     },
-    onSuccess: () => {
-      qClient.invalidateQueries({
-        queryKey: ["video", video._id, "isLiked", "isDisliked"],
+    onSuccess: async () => {
+      await qClient.invalidateQueries({
+        queryKey: ["video", video._id],
+      });
+      await qClient.invalidateQueries({
+        queryKey: ["isLiked", video._id],
+      });
+      await qClient.invalidateQueries({
+        queryKey: ["isDisliked", video._id],
       });
     },
   });
@@ -101,9 +113,15 @@ export default function WatchPageLikeDislike({ video }: { video: Video }) {
       }
       return dislikeVideo(video._id, token);
     },
-    onSuccess: () => {
-      qClient.invalidateQueries({
-        queryKey: ["video", video._id, "isLiked", "isDisliked"],
+    onSuccess: async () => {
+      await qClient.invalidateQueries({
+        queryKey: ["video", video._id],
+      });
+      await qClient.invalidateQueries({
+        queryKey: ["isLiked", video._id],
+      });
+      await qClient.invalidateQueries({
+        queryKey: ["isDisliked", video._id],
       });
     },
   });
@@ -122,9 +140,15 @@ export default function WatchPageLikeDislike({ video }: { video: Video }) {
       }
       return unDislikeVideo(video._id, token);
     },
-    onSuccess: () => {
-      qClient.invalidateQueries({
-        queryKey: ["video", video._id, "isLiked", "isDisliked"],
+    onSuccess: async () => {
+      await qClient.invalidateQueries({
+        queryKey: ["video", video._id],
+      });
+      await qClient.invalidateQueries({
+        queryKey: ["isLiked", video._id],
+      });
+      await qClient.invalidateQueries({
+        queryKey: ["isDisliked", video._id],
       });
     },
   });
