@@ -7,6 +7,7 @@ export type LoginRequestOptions = {
 
 export type LoginResponse = {
   token: string; // The JWT token
+  expiresAt: number; // The timestamp when the token expires
 };
 
 export default async function login(userInfo: LoginRequestOptions) {

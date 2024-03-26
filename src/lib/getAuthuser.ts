@@ -7,6 +7,13 @@ export default async function getAuthUser() {
   if (!token) {
     return null;
   }
+  const expiresAt = localStorage.getItem("JWTTokenExpiresAt");
+  if (!expiresAt) {
+    return null;
+  }
+  if (Date.now() > parseInt(expiresAt)) {
+    return null;
+  }
   const res = await fetch(`${AUTH_URL}/login`, {
     method: "GET",
     headers: {

@@ -1,13 +1,33 @@
 import { Video } from "lib/api/getVideo";
 import { Link } from "react-router-dom";
 import getUser from "../../lib/api/getuser";
+import getChannelUserSubscribedStatus from "../../lib/api/getChannelUserSubscribedStatus";
 import { Button } from "./ui/button";
 import { useQuery } from "@tanstack/react-query";
+import { getToken } from "@/lib/getToken";
+import { checkAuth } from "@/lib/checkAuth";
 
 export default function WatchPageUploader({ video }: { video: Video }) {
   const { data: uploader, isLoading: uploaderLoading } = useQuery({
     queryKey: ["user", video.uploader],
     queryFn: () => getUser(video.uploader),
+  });
+  const { data: isSubscribed } = useQuery({
+    queryKey: ["isSubscribed", video.uploader],
+    queryFn: async () => {
+      if (!checkAuth()) {
+        return false;
+      }
+      if (!getToken()) {
+        return false;
+      }
+      const status = await getChannelUserSubscribedStatus(
+        video.uploader,
+        // @ts-expect-error - Handled by checkAuth
+        getToken()
+      );
+      return status.isSubscribed;
+    },
   });
   if (uploaderLoading) {
     return <p>Loading...</p>;
@@ -27,8 +47,12 @@ export default function WatchPageUploader({ video }: { video: Video }) {
           </p>
         </div>
         {/* TODO: Handle subscription */}
-        {/* TODO: Handle if already subscribed */}
-        <Button className="ml-3">Subscribe</Button>
+        <Button
+          className="ml-3"
+          variant={`${isSubscribed ? "ghost" : "default"}`}
+        >
+          {isSubscribed ? "Subscribed" : "Subscribe"}
+        </Button>
       </div>
     </Link>
   );
