@@ -2,9 +2,9 @@ import { useParams } from "react-router-dom";
 import getUser from "../../../lib/api/getuser";
 import { useQuery } from "@tanstack/react-query";
 import PageBase from "../../components/PageBase";
-import { Button } from "@/components/ui/button";
 import ChannelPageVideos from "@/components/ChannelPageVideos";
 import { Helmet } from "react-helmet";
+import SubscribeButton from "@/components/SubscribeButton";
 
 export default function ChannelPage() {
   const { id } = useParams<{ id: string }>();
@@ -34,9 +34,8 @@ export default function ChannelPage() {
               <h1 className="text-5xl font-bold tracking-wider">
                 {user?.firstName} {user?.lastName}
               </h1>
-              {/* TODO: Handle Subscribe */}
-              {/* TODO: Handle already subscribed */}
-              <Button className="mt-2">Subscribe</Button>
+              {/* @ts-expect-error - Handled before */}
+              <SubscribeButton uploader={id} />
               <br />
               <small className="text-gray-500">{user?.userName}</small>
               <p>

@@ -3,8 +3,8 @@ import getUsers from "../../../lib/api/getUsers";
 import PageBase from "@/components/PageBase";
 import { motion } from "framer-motion";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import SubscribeButton from "@/components/SubscribeButton";
 
 export default function ChannelsPage() {
   const { data: users, isLoading } = useQuery({
@@ -42,9 +42,9 @@ export default function ChannelsPage() {
                 </h1>
                 <small className="text-gray-500">{user.userName}</small>
                 <br />
-                {/* TODO: Handle Subsribe */}
-                {/* TODO: handle Already Subscribed */}
-                <Button className="my-2">Subscribe</Button>
+                <span className="ml-[-1rem]">
+                  <SubscribeButton uploader={user._id} />
+                </span>
                 <br />
                 <p>
                   <span className="font-bold">{user.subscriberCount}</span>{" "}
