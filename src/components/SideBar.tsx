@@ -4,7 +4,7 @@ import { HomeIcon } from "@radix-ui/react-icons";
 import { CiSquareInfo } from "react-icons/ci";
 import { FaUsers } from "react-icons/fa";
 
-export default function SideBar() {
+export default function SideBar({ closeBar }: { closeBar: () => void }) {
   return (
     <motion.div
       className="fixed top-0 left-0 w-64 h-full bg-black z-[9999] mt-[4rem] overflow-hidden"
@@ -13,7 +13,7 @@ export default function SideBar() {
       animate={{ x: 0 }}
       transition={{ type: "tween" }}
     >
-      <div className="flex flex-col gap-5 p-5 justify-start">
+      <div className="flex flex-col gap-5 p-5 justify-start" onClick={closeBar}>
         <Link
           to="/"
           className="text-white text-xl font-bold flex items-center gap-3"

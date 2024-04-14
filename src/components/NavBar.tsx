@@ -21,6 +21,11 @@ export default function NavBar({
   setIsOpen: (value: boolean) => void;
   user: User | undefined | null;
 }) {
+  const closeSidebarMobile = () => {
+    if (window.innerWidth <= 768) {
+      setIsOpen(false);
+    }
+  };
   return (
     <>
       <div className="flex fixed top-0 bg-black w-full p-5 z-[99999]">
@@ -70,7 +75,7 @@ export default function NavBar({
           )}
         </div>
       </div>
-      {isOpen && <SideBar />}
+      {isOpen && <SideBar closeBar={closeSidebarMobile} />}
     </>
   );
 }

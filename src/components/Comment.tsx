@@ -88,7 +88,7 @@ export default function Comment({ comment }: { comment: Comment }) {
           <p className="text-xs text-gray-500">Likes: {comment.likeCount}</p>
           <span
             className="text-xs underline mr-3 text-gray-500 hover:cursor-pointer"
-            onClick={(e) => console.log("reply", e)}
+            onClick={() => alert("Replying to comments is not yet supported")}
           >
             Reply
           </span>
