@@ -1,12 +1,68 @@
 import { Comment } from "lib/api/getCommentsOnVideo";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import getUser from "../../lib/api/getuser";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { checkAuth } from "../lib/checkAuth";
+import { getToken } from "../lib/getToken";
+import likeComment from "../../lib/api/likeComment";
+import unlikeComment from "../../lib/api/unlikeComment";
+import { useEffect, useState } from "react";
+import getAuthUser from "@/lib/getAuthuser";
 
 export default function Comment({ comment }: { comment: Comment }) {
+  const [isLiked, setIsLiked] = useState(false);
+  const naviagte = useNavigate();
+  const qClient = useQueryClient();
   const { data: commenter } = useQuery({
     queryKey: ["user", comment.user],
     queryFn: () => getUser(comment.user),
+  });
+  const commentLike = useMutation({
+    mutationKey: ["likeComment", comment._id],
+    mutationFn: async () => {
+      if (!checkAuth()) {
+        naviagte("/auth/login");
+        return null;
+      }
+      const token = getToken();
+      if (!token) {
+        naviagte("/auth/login");
+        return null;
+      }
+      return await likeComment(comment._id, token);
+    },
+    onSuccess: () => {
+      qClient.invalidateQueries({
+        queryKey: ["comments", comment.video],
+      });
+    },
+  });
+  const commentUnlike = useMutation({
+    mutationKey: ["unlikeComment", comment._id],
+    mutationFn: async () => {
+      if (!checkAuth()) {
+        naviagte("/auth/login");
+        return null;
+      }
+      const token = getToken();
+      if (!token) {
+        naviagte("/auth/login");
+        return null;
+      }
+      return await unlikeComment(comment._id, token);
+    },
+    onSuccess: () => {
+      qClient.invalidateQueries({
+        queryKey: ["comments", comment.video],
+      });
+    },
+  });
+  useEffect(() => {
+    (async () => {
+      const user = await getAuthUser();
+      if (!user) return;
+      setIsLiked(comment.likes.includes(user._id));
+    })();
   });
   return (
     <div className="flex flex-col mt-3 rounded-xl p-3">
@@ -38,9 +94,11 @@ export default function Comment({ comment }: { comment: Comment }) {
           </span>
           <span
             className="text-xs underline text-gray-500 hover:cursor-pointer"
-            onClick={(e) => console.log("like", e)}
+            onClick={() =>
+              isLiked ? commentUnlike.mutate() : commentLike.mutate()
+            }
           >
-            Like
+            {isLiked ? "Unlike" : "Like"}
           </span>
         </div>
       </div>
