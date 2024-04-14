@@ -71,6 +71,12 @@ export default function SignUpPage() {
           className="flex flex-col items-center justify-center col-span-7 gap-5"
           onSubmit={handleSubmit(onSubmit)}
         >
+          <div>
+            Already have an account?{" "}
+            <a href="/auth/login" className="text-blue-500 underline">
+              Login
+            </a>
+          </div>
           {errors.root && (
             <div className="flex gap-5 w-full max-w-sm bg-red-100 items-center justify-center rounded-xl p-5">
               <MdErrorOutline className="text-red-500 text-2xl" />

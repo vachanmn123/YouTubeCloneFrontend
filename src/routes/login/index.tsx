@@ -94,6 +94,12 @@ export default function LoginPage() {
               {...register("password", { required: true })}
             />
           </div>
+          <div>
+            Don't have an account?
+            <a href="/auth/signup" className="text-blue-500 underline mx-1">
+              Register now!
+            </a>
+          </div>
           <div className="grid w-full max-w-sm items-center gap-1 5">
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? (
