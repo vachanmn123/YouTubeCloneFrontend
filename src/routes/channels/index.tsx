@@ -32,9 +32,9 @@ export default function ChannelsPage() {
           <Link to={`/channel/${user._id}`}>
             <div className="flex flex-row border-y py-5" key={user._id}>
               <img
-                src={user.imageURL}
+                src={user.imageURL || "/avatar.png"}
                 alt="Channel Avatar"
-                className="h-[10rem] w-[10rem] rounded-full aspect-square object-cover"
+                className="h-[10rem] w-[10rem] rounded-full aspect-square object-cover mx-5"
               />
               <div>
                 <h1 className="text-2xl font-bold tracking-wider">

@@ -11,9 +11,12 @@ export default function Comment({ comment }: { comment: Comment }) {
   return (
     <div className="flex flex-col mt-3 rounded-xl p-3">
       <div className="flex items-center gap-3">
-        <Link to={`/channel/${commenter?._id}`}>
+        <Link
+          to={`/channel/${commenter?._id}`}
+          className="h-[3rem] w-[3rem] rounded-full aspect-square"
+        >
           <img
-            src={commenter?.imageURL}
+            src={commenter?.imageURL || "/avatar.png"}
             alt={`${commenter?.userName}'s profile picture`}
             className="h-[3rem] w-[3rem] rounded-full aspect-square object-cover"
           />

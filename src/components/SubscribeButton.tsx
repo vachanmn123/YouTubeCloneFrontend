@@ -1,4 +1,3 @@
-import React from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import getChannelUserSubscribedStatus from "../../lib/api/getChannelUserSubscribedStatus";
 import { getToken } from "../lib/getToken";
