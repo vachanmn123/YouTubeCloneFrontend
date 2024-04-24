@@ -12,6 +12,7 @@ import ChannelPage from "./routes/channel";
 import ChannelsPage from "./routes/channels";
 import { useQuery } from "@tanstack/react-query";
 import getAuthUser from "./lib/getAuthuser";
+import UploadPage from "./routes/upload";
 
 function App() {
   const location = useLocation();
@@ -59,6 +60,7 @@ function App() {
             <Route path="/watch/:id" element={<WatchVideoPage />} />
             <Route path="channel/:id" element={<ChannelPage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/upload" element={<UploadPage />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </div>

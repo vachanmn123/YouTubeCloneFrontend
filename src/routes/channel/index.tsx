@@ -5,6 +5,8 @@ import PageBase from "../../components/PageBase";
 import ChannelPageVideos from "@/components/ChannelPageVideos";
 import { Helmet } from "react-helmet";
 import SubscribeButton from "@/components/SubscribeButton";
+import getAuthUser from "@/lib/getAuthuser";
+import { Button } from "@/components/ui/button";
 
 export default function ChannelPage() {
   const { id } = useParams<{ id: string }>();
@@ -12,6 +14,10 @@ export default function ChannelPage() {
     queryKey: ["user", id],
     // @ts-expect-error - This is a bug in the react-query types
     queryFn: () => getUser(id),
+  });
+  const { data: authUser } = useQuery({
+    queryKey: ["authUser"],
+    queryFn: getAuthUser,
   });
   return (
     <PageBase>
@@ -34,10 +40,16 @@ export default function ChannelPage() {
               <h1 className="text-5xl font-bold tracking-wider">
                 {user?.firstName} {user?.lastName}
               </h1>
+              <small className="text-gray-500">{user?.userName}</small>
+              <br />
               {/* @ts-expect-error - Handled before */}
               <SubscribeButton uploader={id} />
+              {user?._id === authUser?._id && (
+                <a href="/upload" className="mx-5">
+                  <Button>Upload Video</Button>
+                </a>
+              )}
               <br />
-              <small className="text-gray-500">{user?.userName}</small>
               <p>
                 <span className="font-bold">{user?.subscriberCount}</span>{" "}
                 {user?.subscriberCount === 1 ? "subscriber" : "subscribers"}
